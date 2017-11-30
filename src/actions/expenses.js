@@ -7,6 +7,7 @@ export const addExpense = (expense) => ({
   expense
 });
 
+//ASYNC ADD ACTION (FIREBASE)
 export const startAddExpense = (expenseData = {}) => {
   return (dispatch) => {
     const {
@@ -33,7 +34,7 @@ export const removeExpense = ({ id } = {}) => ({
   id
 });
 
-//ASYNCHRONOUS ACTION
+//ASYNC REMOVE ACTION (FIREBASE)
 export const startRemoveExpense = ({ id }) => {
   return (dispatch) => {
     return database.ref(`expenses/${id}`).remove().then(() => {
@@ -49,12 +50,22 @@ export const editExpense = (id, updates) => ({
   updates
 });
 
+//ASYNC EDIT ACTION (FIREBASE)
+export const startEditExpense = (id, updates) => {
+  return (dispatch) => {
+    return database.ref(`expenses/${id}`).update(updates).then(() => {
+      dispatch(editExpense(id, updates)); 
+    });
+  };
+};
+
 // SET_EXPENSES
 export const setExpenses = (expenses) => ({
   type: 'SET_EXPENSES',
   expenses
 });
 
+//ASYNC SET ACTION (FIREBASE)
 export const startSetExpenses = () => {
   return (dispatch) => {
     return database.ref('expenses').once('value').then((snapshot) => {
