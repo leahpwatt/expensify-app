@@ -15,8 +15,6 @@ const database = firebase.database();
 
 export { firebase, database as default };
 
-console.log("NODE_ENV",process.env.NODE_ENV);
-
 // database.ref('expenses').on('child_removed', (snapshot) => {
 //   console.log(snapshot.key, snapshot.val());
 // });
