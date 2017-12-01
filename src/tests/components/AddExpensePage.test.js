@@ -5,7 +5,7 @@ import expenses from '../fixtures/expenses';
 
 let startAddExpense, history, wrapper;
 
-beforeEach(() => { //eliminates need to repeat vars in below two tests
+beforeEach(() => {
   startAddExpense = jest.fn();
   history = { push: jest.fn() };
   wrapper = shallow(<AddExpensePage startAddExpense={startAddExpense} history={history} />);
