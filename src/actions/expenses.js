@@ -7,17 +7,15 @@ export const addExpense = (expense) => ({
   expense
 });
 
-//ASYNC ADD ACTION (FIREBASE)
 export const startAddExpense = (expenseData = {}) => {
   return (dispatch, getState) => {
-    c
+    const uid = getState().auth.uid;
     const {
       description = '',
       note = '',
       amount = 0,
       createdAt = 0
     } = expenseData;
-
     const expense = { description, note, amount, createdAt };
 
     return database.ref(`users/${uid}/expenses`).push(expense).then((ref) => {
@@ -35,13 +33,12 @@ export const removeExpense = ({ id } = {}) => ({
   id
 });
 
-//ASYNC REMOVE ACTION (FIREBASE)
-export const startRemoveExpense = ({ id }) => {
+export const startRemoveExpense = ({ id } = {}) => {
   return (dispatch, getState) => {
     const uid = getState().auth.uid;
-    return database.ref(`users/${id}/expenses/${id}`).remove().then(() => {
-      dispatch(removeExpense({ id }));    
-    });    
+    return database.ref(`users/${uid}/expenses/${id}`).remove().then(() => {
+      dispatch(removeExpense({ id }));
+    });
   };
 };
 
@@ -52,12 +49,11 @@ export const editExpense = (id, updates) => ({
   updates
 });
 
-//ASYNC EDIT ACTION (FIREBASE)
 export const startEditExpense = (id, updates) => {
   return (dispatch, getState) => {
     const uid = getState().auth.uid;
-    return database.ref(`users/${id}/expenses/${id}`).update(updates).then(() => {
-      dispatch(editExpense(id, updates)); 
+    return database.ref(`users/${uid}/expenses/${id}`).update(updates).then(() => {
+      dispatch(editExpense(id, updates));
     });
   };
 };
@@ -68,7 +64,6 @@ export const setExpenses = (expenses) => ({
   expenses
 });
 
-//ASYNC SET ACTION (FIREBASE)
 export const startSetExpenses = () => {
   return (dispatch, getState) => {
     const uid = getState().auth.uid;

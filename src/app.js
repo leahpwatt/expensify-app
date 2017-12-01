@@ -13,7 +13,6 @@ import { firebase } from './firebase/firebase';
 //import './playground/promises';
 
 const store = configureStore();
-
 const jsx = (
   <Provider store={store}>
     <AppRouter />
@@ -30,7 +29,7 @@ const renderApp = () => {
 ReactDOM.render(<p>Loading...</p>, document.getElementById('app'));
 
 firebase.auth().onAuthStateChanged((user) => {
-  if (user) {    
+  if (user) {
     store.dispatch(login(user.uid));
     store.dispatch(startSetExpenses()).then(() => {
       renderApp();
@@ -41,12 +40,6 @@ firebase.auth().onAuthStateChanged((user) => {
   } else {
     store.dispatch(logout());
     renderApp();
-    history.push('/');    
+    history.push('/');
   }
 });
-
-
-
-
-
-
