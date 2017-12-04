@@ -1,0 +1,12 @@
+.show-for-mobile {
+  @media (min-width: $desktop-breakpoint) {
+    display: none;
+  }
+}
+
+/* Subtracting .01rem ensures that both never happen at same time */
+.show-for-desktop {
+  @media (max-width: $desktop-breakpoint - .01rem ) {
+    display: none;
+  }
+}
